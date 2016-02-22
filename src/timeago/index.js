@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 export default class Timeago extends React.Component {
     constructor(props) {
@@ -106,6 +107,9 @@ export default class Timeago extends React.Component {
         delete props.date
         delete props.formatter
         delete props.component
+
+        let fullDate = moment(this.props.date)
+        props.title = fullDate.format('YYYY-MM-DD HH:mm:ss')
 
         return React.createElement(this.props.component, props, this.props.formatter(value, unit, suffix, then))
     }
