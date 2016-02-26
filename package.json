@@ -1,6 +1,6 @@
 {
   "name": "fit-timeago",
-  "version": "0.2.45",
+  "version": "0.2.50",
   "description": "time-ago",
   "main": "lib/index.js",
   "scripts": {
