@@ -16,9 +16,7 @@
   "author": "tieba",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.11.2",
     "react": "^0.14.7",
-    "classnames": "^2.2.3",
-    "react-dom": "^0.14.7"
+    "moment": "^2.11.1"
   }
 }
