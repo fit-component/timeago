@@ -149,7 +149,7 @@ Timeago.defaultProps = {
     // @desc 每隔多久更新一次时间,默认无限大
     maxPeriod: Infinity,
 
-    // @desc 启用中文
+    // @desc 启用中文支持
     useChinese: false,
 
     // @desc 定制各类提示语句
