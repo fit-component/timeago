@@ -74,45 +74,56 @@ export default class Timeago extends React.Component {
         let then = (new Date(this.props.date)).valueOf()
         let now = Date.now()
 
-        console.log(then, now)
+        if (now - then > this.props.loseTime) { // 友好时间失效了
+            let fullDate = moment(this.props.date)
+            let formatString = fullDate.format(this.props.loseFormat)
 
-        let seconds = Math.round(Math.abs(now - then) / 1000)
-        let suffix = then < now ? this.props.label.ago : this.props.label.fromNow
-        let value, unit
+            let props = Object.assign({}, this.props)
 
-        if (seconds < 60) {
-            value = Math.round(seconds)
-            unit = this.props.label.second
-        } else if (seconds < 60 * 60) {
-            value = Math.round(seconds / 60)
-            unit = this.props.label.minute
-        } else if (seconds < 60 * 60 * 24) {
-            value = Math.round(seconds / (60 * 60))
-            unit = this.props.label.hour
-        } else if (seconds < 60 * 60 * 24 * 7) {
-            value = Math.round(seconds / (60 * 60 * 24))
-            unit = this.props.label.day
-        } else if (seconds < 60 * 60 * 24 * 30) {
-            value = Math.round(seconds / (60 * 60 * 24 * 7))
-            unit = this.props.label.week
-        } else if (seconds < 60 * 60 * 24 * 365) {
-            value = Math.round(seconds / (60 * 60 * 24 * 30))
-            unit = this.props.label.month
+            delete props.date
+            delete props.formatter
+            delete props.component
+
+            return React.createElement(this.props.component, props, formatString)
         } else {
-            value = Math.round(seconds / (60 * 60 * 24 * 365))
-            unit = this.props.label.year
+            let seconds = Math.round(Math.abs(now - then) / 1000)
+            let suffix = then < now ? this.props.label.ago : this.props.label.fromNow
+            let value, unit
+
+            if (seconds < 60) {
+                value = Math.round(seconds)
+                unit = this.props.label.second
+            } else if (seconds < 60 * 60) {
+                value = Math.round(seconds / 60)
+                unit = this.props.label.minute
+            } else if (seconds < 60 * 60 * 24) {
+                value = Math.round(seconds / (60 * 60))
+                unit = this.props.label.hour
+            } else if (seconds < 60 * 60 * 24 * 7) {
+                value = Math.round(seconds / (60 * 60 * 24))
+                unit = this.props.label.day
+            } else if (seconds < 60 * 60 * 24 * 30) {
+                value = Math.round(seconds / (60 * 60 * 24 * 7))
+                unit = this.props.label.week
+            } else if (seconds < 60 * 60 * 24 * 365) {
+                value = Math.round(seconds / (60 * 60 * 24 * 30))
+                unit = this.props.label.month
+            } else {
+                value = Math.round(seconds / (60 * 60 * 24 * 365))
+                unit = this.props.label.year
+            }
+
+            let props = Object.assign({}, this.props)
+
+            delete props.date
+            delete props.formatter
+            delete props.component
+
+            let fullDate = moment(this.props.date)
+            props.title = fullDate.format('YYYY-MM-DD HH:mm:ss')
+
+            return React.createElement(this.props.component, props, this.props.formatter(value, unit, suffix, then))
         }
-
-        let props = Object.assign({}, this.props)
-
-        delete props.date
-        delete props.formatter
-        delete props.component
-
-        let fullDate = moment(this.props.date)
-        props.title = fullDate.format('YYYY-MM-DD HH:mm:ss')
-
-        return React.createElement(this.props.component, props, this.props.formatter(value, unit, suffix, then))
     }
 }
 
@@ -128,6 +139,9 @@ Timeago.defaultProps = {
 
     // @desc 多久以后的时间会失效,失效指的是不再显示友好时间,直接显示 YYYY-MM-DD HH:mm:ss
     loseTime: Infinity,
+
+    // @desc 失效时间的格式化类型
+    loseFormat: 'YYYY-MM-DD HH:mm:ss',
 
     // @desc 组件在更新前等待的最少秒数
     minPeriod: 0,
