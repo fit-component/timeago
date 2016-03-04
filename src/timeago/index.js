@@ -73,10 +73,11 @@ export default class Timeago extends React.Component {
     render() {
         let then = (new Date(this.props.date)).valueOf()
         let now = Date.now()
+
+        console.log(then, now)
+
         let seconds = Math.round(Math.abs(now - then) / 1000)
-
         let suffix = then < now ? this.props.label.ago : this.props.label.fromNow
-
         let value, unit
 
         if (seconds < 60) {
@@ -124,6 +125,9 @@ Timeago.defaultProps = {
 
     // @desc 外层dom标签
     component: 'span',
+
+    // @desc 多久以后的时间会失效,失效指的是不再显示友好时间,直接显示 YYYY-MM-DD HH:mm:ss
+    loseTime: Infinity,
 
     // @desc 组件在更新前等待的最少秒数
     minPeriod: 0,
