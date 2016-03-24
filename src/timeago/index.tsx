@@ -3,6 +3,8 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
+console.log(123)
+
 export default class Timeago extends React.Component<Timeago.Props, Timeago.State> {
     _isMounted:boolean
     timeoutId:number
