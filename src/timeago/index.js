@@ -1,27 +1,21 @@
-/// <reference path="../../../../../typings/tsd.d.ts" />
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var React = require('react');
-var moment = require('moment');
-var Timeago = (function (_super) {
-    __extends(Timeago, _super);
-    function Timeago(props) {
-        _super.call(this, props);
+"use strict";
+const React = require('react');
+const moment = require('moment');
+class Timeago extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {};
     }
-    Timeago.prototype.componentWillMount = function () {
+    componentWillMount() {
         this._isMounted = true;
         this.timeoutId = 0;
-    };
-    Timeago.prototype.componentDidMount = function () {
+    }
+    componentDidMount() {
         if (this.props.live) {
             this.tick(true);
         }
-    };
-    Timeago.prototype.componentDidUpdate = function (nextProps) {
+    }
+    componentDidUpdate(nextProps) {
         if (this.props.live !== nextProps.live || this.props.date !== nextProps.date) {
             if (!this.props.live && this.timeoutId) {
                 clearTimeout(this.timeoutId);
@@ -29,23 +23,22 @@ var Timeago = (function (_super) {
             }
             this.tick();
         }
-    };
-    Timeago.prototype.componentWillUnmount = function () {
+    }
+    componentWillUnmount() {
         this._isMounted = false;
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
             this.timeoutId = undefined;
         }
-    };
-    Timeago.prototype.tick = function (refresh) {
-        var _this = this;
+    }
+    tick(refresh) {
         if (!this._isMounted || !this.props.live) {
             return;
         }
-        var period = 1000;
-        var then = (new Date(this.props.date)).valueOf();
-        var now = Date.now();
-        var seconds = Math.round(Math.abs(now - then) / 1000);
+        let period = 1000;
+        let then = (new Date(this.props.date)).valueOf();
+        let now = Date.now();
+        let seconds = Math.round(Math.abs(now - then) / 1000);
         if (seconds < 60) {
             period = 1000;
         }
@@ -60,27 +53,27 @@ var Timeago = (function (_super) {
         }
         period = Math.min(Math.max(period, this.props.minPeriod), this.props.maxPeriod);
         if (!!period) {
-            this.timeoutId = setTimeout(function () {
-                _this.tick();
+            this.timeoutId = setTimeout(() => {
+                this.tick();
             }, period);
         }
         if (!refresh) {
             this.forceUpdate();
         }
-    };
-    Timeago.prototype.render = function () {
-        var _a = this.props, component = _a.component, date = _a.date, loseTime = _a.loseTime, loseFormat = _a.loseFormat, label = _a.label, formatter = _a.formatter;
-        var then = (new Date(date)).valueOf();
-        var now = Date.now();
+    }
+    render() {
+        let { component, date, loseTime, loseFormat, label, formatter } = this.props;
+        let then = (new Date(date)).valueOf();
+        let now = Date.now();
         if (now - then >= loseTime) {
-            var fullDate = moment(date);
-            var formatString = fullDate.format(loseFormat);
+            let fullDate = moment(date);
+            let formatString = fullDate.format(loseFormat);
             return React.createElement(component, null, formatString);
         }
         else {
-            var seconds = Math.round(Math.abs(now - then) / 1000);
-            var suffix = then < now ? label.ago : label.fromNow;
-            var value, unit;
+            let seconds = Math.round(Math.abs(now - then) / 1000);
+            let suffix = then < now ? label.ago : label.fromNow;
+            let value, unit;
             if (seconds < 60) {
                 value = Math.round(seconds);
                 unit = label.second;
@@ -109,34 +102,25 @@ var Timeago = (function (_super) {
                 value = Math.round(seconds / (60 * 60 * 24 * 365));
                 unit = label.year;
             }
-            var fullDate = moment(date);
-            var newProps = Object.assign({}, null, {
+            let fullDate = moment(date);
+            let newProps = Object.assign({}, null, {
                 title: fullDate.format(loseFormat)
             });
             return React.createElement(component, newProps, formatter(value, unit, suffix, then));
         }
-    };
-    return Timeago;
-})(React.Component);
-exports["default"] = Timeago;
+    }
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Timeago;
 Timeago.defaultProps = {
-    // @desc 需要处理的时间,可以是一个date对象,UTC字符串或者是时间戳
     date: '',
-    // @desc 是否跟随时间自动变化
     live: true,
-    // @desc 外层dom标签
     component: 'span',
-    // @desc 多久以后的时间会失效,失效指的是不再显示友好时间,直接显示 YYYY-MM-DD HH:mm:ss
     loseTime: Infinity,
-    // @desc 失效时间的格式化类型
     loseFormat: 'YYYY-MM-DD HH:mm:ss',
-    // @desc 组件在更新前等待的最少秒数
     minPeriod: 0,
-    // @desc 每隔多久更新一次时间,默认无限大
     maxPeriod: Infinity,
-    // @desc 启用中文支持
     useChinese: false,
-    // @desc 定制各类提示语句
     label: {
         ago: 'ago',
         fromNow: 'from now',
@@ -148,11 +132,11 @@ Timeago.defaultProps = {
         month: 'month',
         year: 'year'
     },
-    // @desc 格式化
-    formatter: function (value, unit, suffix) {
+    formatter: (value, unit, suffix) => {
         if (value !== 1) {
             unit += 's';
         }
         return value + ' ' + unit + ' ' + suffix;
     }
 };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUVBLE1BQVksS0FBSyxXQUFNLE9BQ3ZCLENBQUMsQ0FENkI7QUFDOUIsTUFBWSxNQUFNLFdBQU0sUUFFeEIsQ0FBQyxDQUYrQjtBQUVoQyxzQkFBcUMsS0FBSyxDQUFDLFNBQVM7SUFLaEQsWUFBWSxLQUFTO1FBQ2pCLE1BQU0sS0FBSyxDQUFDLENBQUE7UUFDWixJQUFJLENBQUMsS0FBSyxHQUFHLEVBQUUsQ0FBQTtJQUNuQixDQUFDO0lBRVMsa0JBQWtCO1FBQ3hCLElBQUksQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFBO1FBQ3RCLElBQUksQ0FBQyxTQUFTLEdBQUcsQ0FBQyxDQUFBO0lBQ3RCLENBQUM7SUFFUyxpQkFBaUI7UUFDdkIsRUFBRSxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDO1lBQ2xCLElBQUksQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUE7UUFDbkIsQ0FBQztJQUNMLENBQUM7SUFFUyxrQkFBa0IsQ0FBQyxTQUFhO1FBQ3RDLEVBQUUsQ0FBQyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsSUFBSSxLQUFLLFNBQVMsQ0FBQyxJQUFJLElBQUksSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLEtBQUssU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUM7WUFDM0UsRUFBRSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLElBQUksSUFBSSxJQUFJLENBQUMsU0FBUyxDQUFDLENBQUMsQ0FBQztnQkFDckMsWUFBWSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsQ0FBQTtnQkFDNUIsSUFBSSxDQUFDLFNBQVMsR0FBRyxTQUFTLENBQUE7WUFDOUIsQ0FBQztZQUNELElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQTtRQUNmLENBQUM7SUFDTCxDQUFDO0lBRVMs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

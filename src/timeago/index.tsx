@@ -1,3 +1,5 @@
+/// <reference path="../../../../../typings/tsd.d.ts" />
+
 import * as React from 'react'
 import * as moment from 'moment'
 
@@ -6,7 +8,7 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
     timeoutId:number
     static defaultProps:any
 
-    constructor(props) {
+    constructor(props:any) {
         super(props)
         this.state = {}
     }
@@ -22,7 +24,7 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
         }
     }
 
-    protected componentDidUpdate(nextProps):void {
+    protected componentDidUpdate(nextProps:any):void {
         if (this.props.live !== nextProps.live || this.props.date !== nextProps.date) {
             if (!this.props.live && this.timeoutId) {
                 clearTimeout(this.timeoutId)
@@ -74,7 +76,7 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
         }
     }
 
-    protected render():React.ReactElement<any> {
+    public render():React.ReactElement<any> {
         let {component, date, loseTime, loseFormat, label, formatter} = this.props
 
         let then = (new Date(date)).valueOf()
@@ -88,7 +90,7 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
         } else {
             let seconds = Math.round(Math.abs(now - then) / 1000)
             let suffix = then < now ? label.ago : label.fromNow
-            let value, unit
+            let value:number, unit:string
 
             if (seconds < 60) {
                 value = Math.round(seconds)
@@ -129,6 +131,21 @@ module Timeago {
         date:any
         minPeriod:number
         maxPeriod:number
+        component:string
+        loseTime:number
+        loseFormat:string
+        label:{
+            ago:string
+            fromNow:string
+            second:string
+            minute:string
+            hour:string
+            day:string
+            week:string
+            month:string
+            year:string
+        }
+        formatter:Function
     }
 
     export interface State {
@@ -175,7 +192,7 @@ Timeago.defaultProps = {
     },
 
     // @desc 格式化
-    formatter: (value, unit, suffix)=> {
+    formatter: (value:number, unit:string, suffix:string)=> {
         if (value !== 1) {
             unit += 's'
         }
