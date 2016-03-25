@@ -7,9 +7,9 @@ import * as Module from './module'
 export default class Timeago extends React.Component<Module.TimeagoModule.Props, Module.TimeagoModule.State> {
     _isMounted:boolean
     timeoutId:number
-    static defaultProps:Module.TimeagoModule.Props
+    static defaultProps:Module.TimeagoModule.Props = new Module.TimeagoModule.Props()
 
-    constructor(props:Module.TimeagoModule.Props) {
+    constructor(props:any) {
         super(props)
         this.state = {}
     }

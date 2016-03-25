@@ -1,13 +1,13 @@
-interface Label {
-    ago:string
-    fromNow:string
-    second:string
-    minute:string
-    hour:string
-    day:string
-    week:string
-    month:string
-    year:string
+export class Label {
+    ago:string = 'ago'
+    fromNow:string = 'from now'
+    second:string = 'second'
+    minute:string = 'minute'
+    hour:string = 'hour'
+    day:string = 'day'
+    week:string = 'week'
+    month:string = 'month'
+    year:string = 'year'
 }
 
 export module TimeagoModule {
@@ -29,17 +29,7 @@ export module TimeagoModule {
         // @desc 启用中文支持
         useChinese:boolean = false
         // @desc 定制各类提示语句
-        label:{
-            ago:'ago',
-            fromNow:'from now',
-            second:'second',
-            minute:'minute',
-            hour:'hour',
-            day:'day',
-            week:'week',
-            month:'month',
-            year:'year'
-        }
+        label:Label = new Label()
         // @desc 格式化
         formatter:(value:number, unit:string, suffix:string, then:any)=>string =
             function (value:number, unit:string, suffix:string, then:any):string {
