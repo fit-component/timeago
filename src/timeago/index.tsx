@@ -2,13 +2,14 @@
 
 import * as React from 'react'
 import * as moment from 'moment'
+import * as Module from './module'
 
-export default class Timeago extends React.Component<Timeago.Props, Timeago.State> {
+export default class Timeago extends React.Component<Module.TimeagoModule.Props, Module.TimeagoModule.State> {
     _isMounted:boolean
     timeoutId:number
-    static defaultProps:any
+    static defaultProps:Module.TimeagoModule.Props
 
-    constructor(props:any) {
+    constructor(props:Module.TimeagoModule.Props) {
         super(props)
         this.state = {}
     }
@@ -24,7 +25,7 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
         }
     }
 
-    protected componentDidUpdate(nextProps:any):void {
+    protected componentDidUpdate(nextProps:Module.TimeagoModule.Props):void {
         if (this.props.live !== nextProps.live || this.props.date !== nextProps.date) {
             if (!this.props.live && this.timeoutId) {
                 clearTimeout(this.timeoutId)
@@ -122,80 +123,5 @@ export default class Timeago extends React.Component<Timeago.Props, Timeago.Stat
 
             return React.createElement(component, newProps, formatter(value, unit, suffix, then))
         }
-    }
-}
-
-module Timeago {
-    export interface Props {
-        live:boolean
-        date:any
-        minPeriod:number
-        maxPeriod:number
-        component:string
-        loseTime:number
-        loseFormat:string
-        label:{
-            ago:string
-            fromNow:string
-            second:string
-            minute:string
-            hour:string
-            day:string
-            week:string
-            month:string
-            year:string
-        }
-        formatter:Function
-    }
-
-    export interface State {
-
-    }
-}
-
-Timeago.defaultProps = {
-    // @desc 需要处理的时间,可以是一个date对象,UTC字符串或者是时间戳
-    date: '',
-
-    // @desc 是否跟随时间自动变化
-    live: true,
-
-    // @desc 外层dom标签
-    component: 'span',
-
-    // @desc 多久以后的时间会失效,失效指的是不再显示友好时间,直接显示 YYYY-MM-DD HH:mm:ss
-    loseTime: Infinity,
-
-    // @desc 失效时间的格式化类型
-    loseFormat: 'YYYY-MM-DD HH:mm:ss',
-
-    // @desc 组件在更新前等待的最少秒数
-    minPeriod: 0,
-
-    // @desc 每隔多久更新一次时间,默认无限大
-    maxPeriod: Infinity,
-
-    // @desc 启用中文支持
-    useChinese: false,
-
-    // @desc 定制各类提示语句
-    label: {
-        ago: 'ago',
-        fromNow: 'from now',
-        second: 'second',
-        minute: 'minute',
-        hour: 'hour',
-        day: 'day',
-        week: 'week',
-        month: 'month',
-        year: 'year'
-    },
-
-    // @desc 格式化
-    formatter: (value:number, unit:string, suffix:string)=> {
-        if (value !== 1) {
-            unit += 's'
-        }
-        return value + ' ' + unit + ' ' + suffix
     }
 }
