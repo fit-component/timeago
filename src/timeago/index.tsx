@@ -3,6 +3,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 import * as Module from './module'
+import * as _ from 'lodash'
 
 export default class Timeago extends React.Component<Module.TimeagoModule.Props, Module.TimeagoModule.State> {
     _isMounted:boolean
@@ -117,7 +118,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
             }
 
             let fullDate = moment(date)
-            let newProps = Object.assign({}, null, {
+            let newProps = _.assign({}, null, {
                 title: fullDate.format(loseFormat)
             })
 
