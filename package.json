@@ -1,6 +1,6 @@
 {
   "name": "fit-timeago",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "time-ago",
   "main": "lib/index.js",
   "scripts": {
@@ -16,6 +16,6 @@
   "author": "tieba",
   "license": "ISC",
   "dependencies": {
-    "fit-badge": "^2.0.8"
+    "fit-badge": "^2.0.9"
   }
 }
