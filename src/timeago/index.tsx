@@ -80,9 +80,6 @@ export default class Timeago extends React.Component<Props, State> {
         }
     }
 
-//     FIT组件完成50个左右，已经在贴吧UEG,内容推荐，企业商业化，内容消费的mis后台有广泛使用。
-// 推动贴吧misReact后端渲染改造，并已经运行在TiebaNode产品线
-
     public render():React.ReactElement<any> {
         let {component, date, loseTime, loseFormat, label, formatter} = this.props
 
