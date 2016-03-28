@@ -79,7 +79,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
     }
 
     public render():React.ReactElement<any> {
-        let {component, date, loseTime, loseFormat, label, formatter} = this.props
+        let {component, date, loseTime, loseFormat, label, formatter, ...others} = this.props
 
         let then = (new Date(date)).valueOf()
         let now = Date.now()
@@ -88,7 +88,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
             let fullDate = moment(date)
             let formatString = fullDate.format(loseFormat)
 
-            return React.createElement(component, null, formatString)
+            return React.createElement(component, others, formatString)
         } else {
             let seconds = Math.round(Math.abs(now - then) / 1000)
             let suffix = then < now ? label.ago : label.fromNow
@@ -118,7 +118,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
             }
 
             let fullDate = moment(date)
-            let newProps = _.assign({}, null, {
+            let newProps = _.assign({}, others, {
                 title: fullDate.format(loseFormat)
             })
 
