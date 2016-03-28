@@ -2,13 +2,15 @@
 
 import * as React from 'react'
 import * as moment from 'moment'
-import * as Module from './module'
+import {Props,State} from './module'
 import * as _ from 'lodash'
 
-export default class Timeago extends React.Component<Module.TimeagoModule.Props, Module.TimeagoModule.State> {
+export default class Timeago extends React.Component<Props, State> {
+    static defaultProps:Props = new Props()
+    public state:State = new State()
+
     _isMounted:boolean
     timeoutId:number
-    static defaultProps:Module.TimeagoModule.Props = new Module.TimeagoModule.Props()
 
     constructor(props:any) {
         super(props)
@@ -26,7 +28,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
         }
     }
 
-    protected componentDidUpdate(nextProps:Module.TimeagoModule.Props):void {
+    protected componentDidUpdate(nextProps:Props):void {
         if (this.props.live !== nextProps.live || this.props.date !== nextProps.date) {
             if (!this.props.live && this.timeoutId) {
                 clearTimeout(this.timeoutId)
@@ -78,8 +80,11 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
         }
     }
 
+//     FIT组件完成50个左右，已经在贴吧UEG,内容推荐，企业商业化，内容消费的mis后台有广泛使用。
+// 推动贴吧misReact后端渲染改造，并已经运行在TiebaNode产品线
+
     public render():React.ReactElement<any> {
-        let {component, date, loseTime, loseFormat, label, formatter, ...others} = this.props
+        let {component, date, loseTime, loseFormat, label, formatter} = this.props
 
         let then = (new Date(date)).valueOf()
         let now = Date.now()
@@ -88,7 +93,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
             let fullDate = moment(date)
             let formatString = fullDate.format(loseFormat)
 
-            return React.createElement(component, others, formatString)
+            return React.createElement(component, formatString)
         } else {
             let seconds = Math.round(Math.abs(now - then) / 1000)
             let suffix = then < now ? label.ago : label.fromNow
@@ -118,7 +123,7 @@ export default class Timeago extends React.Component<Module.TimeagoModule.Props,
             }
 
             let fullDate = moment(date)
-            let newProps = _.assign({}, others, {
+            let newProps = _.assign({}, null, {
                 title: fullDate.format(loseFormat)
             })
 
