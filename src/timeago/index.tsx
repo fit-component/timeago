@@ -1,5 +1,3 @@
-/// <reference path="../../../../../typings/tsd.d.ts" />
-
 import * as React from 'react'
 import * as moment from 'moment'
 import {Props, State} from './module'
