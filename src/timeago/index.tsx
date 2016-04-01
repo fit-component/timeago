@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 import {Props, State} from './module'
 import * as _ from 'lodash'
-import TransmitTransparently from 'fit-transmit-transparently'
+import TransmitTransparently from '../../../transmit-transparently/src'
 
 @TransmitTransparently
 export default class Timeago extends React.Component<Props, State> {
