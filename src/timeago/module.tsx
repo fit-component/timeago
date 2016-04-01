@@ -47,11 +47,6 @@ export class Props {
     maxPeriod:number = Infinity
 
     /**
-     * 启用中文支持
-     */
-    useChinese:boolean = false
-
-    /**
      * 定制各类提示语句
      */
     label:Label = new Label()
@@ -66,6 +61,8 @@ export class Props {
             }
             return value + ' ' + unit + ' ' + suffix
         }
+
+    others:any = {}
 }
 
 export class State {

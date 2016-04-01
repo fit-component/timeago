@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as moment from 'moment'
-import {Props,State} from './module'
+import {Props, State} from './module'
 import * as _ from 'lodash'
 import TransmitTransparently from './transmit-transparently'
 
@@ -90,9 +90,8 @@ export default class Timeago extends React.Component<Props, State> {
         if (now - then >= loseTime) { // 友好时间失效了
             let fullDate = moment(date)
             let formatString = fullDate.format(loseFormat)
-            console.log(this.props)
 
-            return React.createElement(component,null, formatString)
+            return React.createElement(component, this.props.others, formatString)
         } else {
             let seconds = Math.round(Math.abs(now - then) / 1000)
             let suffix = then < now ? label.ago : label.fromNow
@@ -122,7 +121,7 @@ export default class Timeago extends React.Component<Props, State> {
             }
 
             let fullDate = moment(date)
-            let newProps = _.assign({}, null, {
+            let newProps = _.assign({}, this.props.others, {
                 title: fullDate.format(loseFormat)
             })
 
