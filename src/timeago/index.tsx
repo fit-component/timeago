@@ -1,16 +1,14 @@
 import * as React from 'react'
 import * as moment from 'moment'
-import {Props, State} from './module'
+import * as module from './module'
 import * as _ from 'lodash'
-import TransmitTransparently from '../../../transmit-transparently/src'
+import {others} from '../../../transmit-transparently/src'
 
-@TransmitTransparently
-export default class Timeago extends React.Component<Props, State> {
-    static defaultProps:Props = new Props()
-    public state:State = new State()
-
-    _isMounted:boolean
-    timeoutId:number
+export default class Timeago extends React.Component<module.PropsInterface, module.StateInterface> {
+    static defaultProps = new module.Props()
+    public state = new module.State()
+    private _isMounted:boolean
+    private timeoutId:number
 
     constructor(props:any) {
         super(props)
@@ -27,7 +25,7 @@ export default class Timeago extends React.Component<Props, State> {
         }
     }
 
-    protected componentDidUpdate(nextProps:Props):void {
+    protected componentDidUpdate(nextProps:module.Props):void {
         if (this.props.live !== nextProps.live || this.props.date !== nextProps.date) {
             if (!this.props.live && this.timeoutId) {
                 clearTimeout(this.timeoutId)
@@ -45,7 +43,7 @@ export default class Timeago extends React.Component<Props, State> {
         }
     }
 
-    private tick(refresh?:boolean):void {
+    protected tick(refresh?:boolean):void {
         if (!this._isMounted || !this.props.live) {
             return
         }
@@ -79,7 +77,8 @@ export default class Timeago extends React.Component<Props, State> {
         }
     }
 
-    public render():React.ReactElement<any> {
+    public render() {
+        const _others = others(new module.Props(), this.props)
         let then = (new Date(this.props.date)).valueOf()
         let now = Date.now()
 
@@ -87,7 +86,7 @@ export default class Timeago extends React.Component<Props, State> {
             let fullDate = moment(this.props.date)
             let formatString = fullDate.format(this.props.loseFormat)
 
-            return React.createElement(this.props.component, this.props.others, formatString)
+            return React.createElement(this.props.component, _others, formatString)
         } else {
             let seconds = Math.round(Math.abs(now - then) / 1000)
             let suffix = then < now ? this.props.label.ago : this.props.label.fromNow
@@ -117,7 +116,7 @@ export default class Timeago extends React.Component<Props, State> {
             }
 
             let fullDate = moment(this.props.date)
-            let newProps = _.assign({}, this.props.others, {
+            let newProps = _.assign({}, _others, {
                 title: fullDate.format(this.props.loseFormat)
             })
 

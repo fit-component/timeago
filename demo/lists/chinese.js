@@ -1,6 +1,6 @@
-import React from 'react'
-import Timeago from 'fit-timeago'
-
+"use strict";
+const React = require('react');
+const src_1 = require('../../src');
 const chinese = {
     ago: '之前',
     fromNow: '从现在开始',
@@ -11,18 +11,14 @@ const chinese = {
     week: '周',
     month: '月',
     year: '年'
-}
-
-const formatter = (value, unit, suffix)=> {
-    return value + ' ' + unit + ' ' + suffix
-}
-
-export default class Demo extends React.Component {
+};
+const formatter = (value, unit, suffix) => {
+    return value + ' ' + unit + ' ' + suffix;
+};
+class Demo extends React.Component {
     render() {
-        return (
-            <Timeago date={new Date()}
-                     label={chinese}
-                     formatter={formatter}/>
-        )
+        return (React.createElement(src_1.default, {date: new Date(), label: chinese, formatter: formatter}));
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Demo;

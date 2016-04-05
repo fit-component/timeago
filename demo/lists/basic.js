@@ -1,10 +1,10 @@
-import React from 'react'
-import Timeago from 'fit-timeago'
-
-export default class Demo extends React.Component {
+"use strict";
+const React = require('react');
+const src_1 = require('../../src');
+class Demo extends React.Component {
     render() {
-        return (
-            <Timeago date={new Date()}/>
-        )
+        return (React.createElement(src_1.default, {date: new Date()}));
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Demo;
