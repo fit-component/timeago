@@ -1,6 +1,6 @@
 {
   "name": "fit-timeago",
-  "version": "2.0.162",
+  "version": "3.0.0",
   "description": "time-ago",
   "main": "lib/index.js",
   "typescript": {
@@ -19,9 +19,9 @@
   "author": "tieba",
   "license": "ISC",
   "dependencies": {
-    "react": "^0.14.7",
-    "moment": "^2.11.1",
+    "react": "^15.0.1",
+    "moment": "^2.12.0",
     "lodash": "^3.10.1",
-    "fit-transmit-transparently": "^2.0.82"
+    "fit-transmit-transparently": "^3.0.0"
   }
 }
