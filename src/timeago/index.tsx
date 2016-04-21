@@ -8,7 +8,7 @@ export default class Timeago extends React.Component<module.PropsInterface, modu
     static defaultProps = new module.Props()
     public state = new module.State()
     private _isMounted:boolean
-    private timeoutId:number
+    private timeoutId:any
 
     constructor(props:any) {
         super(props)
