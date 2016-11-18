@@ -1,6 +1,6 @@
 {
   "name": "fit-timeago",
-  "version": "3.1.46",
+  "version": "3.1.47",
   "description": "time-ago",
   "main": "lib/index.js",
   "typescript": {
@@ -22,7 +22,7 @@
     "react": "^0.14.0 || ^15.0.0",
     "moment": "^2.12.0",
     "lodash": "^3.10.1",
-    "fit-transmit-transparently": "^3.1.45"
+    "fit-transmit-transparently": "^3.1.46"
   },
   "typings": "lib/index.d.ts"
 }
